@@ -1,13 +1,13 @@
-FROM node:22
-
+# Build stage
+FROM node:22 as build
 WORKDIR /app
-
 COPY package*.json ./
-RUN npm ci
-
+RUN npm install
 COPY . .
+RUN npm run build
 
-# EXPOSE is optional and only documentation
+# Production stage
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
-
-CMD ["npm", "run", "dev"]
+CMD ["nginx", "-g", "daemon off;"]
