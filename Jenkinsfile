@@ -13,10 +13,10 @@ pipeline{
             steps{
                 echo " Docker Executing..."
                 sh '''
-                    docker rmi react-jenkins-automate-aws || true
+                    docker stop react-jenkins-automate-aws-container || true
+                    docker rm react-jenkins-automate-aws-container || true
+                    docker rmi -f react-jenkins-automate-aws || true
                     docker build -t react-jenkins-automate-aws .
-                    docker stop react-jenkins-automate-aws || true
-                    docker rm react-jenkins-automate-aws || true
                     docker run -d -p 5173:5173 --name react-jenkins-automate-aws-container react-jenkins-automate-aws
                 '''
             }
