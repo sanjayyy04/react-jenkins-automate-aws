@@ -1,7 +1,7 @@
 jfPipelines(outputResources: 'my-repo') {
     stage('Build') {
         echo 'Building...'
-        // Add build steps here
+        //   build steps here
     }
     
     stage('Test') {
